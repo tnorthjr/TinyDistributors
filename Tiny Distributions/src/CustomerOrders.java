@@ -8,6 +8,7 @@ import java.util.*;
 public class CustomerOrders{
     String orderHeader, orderItems;
 
+    ListIterator<String> listIterator;
     LinkedList<CustomerOrders> orderList = new LinkedList<>();
     CustomerOrders newOrder = new CustomerOrders();
 
@@ -48,6 +49,26 @@ public class CustomerOrders{
 
         fileByteStream.close();
     }
+
+    public void deleteOrder(String key) {
+        int i = 0;
+
+        InventoryItems removeOrderItemSet = new InventoryItems();
+        removeOrderItemSet.setItemName(key);
+
+        CustomerOrders removeOrder = new CustomerOrders();
+        removeOrder.setOrderHeader(removeOrderItemSet);
+
+        while (listIterator.hasNext()) {
+            if (orderList.get(i).equals(key)) {
+                orderList.remove(i);
+            }
+            else {
+                ++i;
+            }
+        }
+    }
+
 
     public void printOrderReport() throws IOException {
         populateOrder();
