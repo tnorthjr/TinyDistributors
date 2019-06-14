@@ -2,10 +2,12 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.Scanner;
+import java.util.*;
 
 public class Customer {
     String custName, custPhone, custAddress;
 
+    ListIterator<String> listIterator;
     LinkedList<Customer> customerList = new LinkedList<>();
     Customer newCustomer = new Customer();
 
@@ -63,6 +65,23 @@ public class Customer {
         customerList.add(newCustomer);
 
         fileByteStream.close(); // close() may throw IOException if fails
+    }
+
+
+    public void deleteCustomer(String key) {
+        int i = 0;
+
+        Customer removeCustomer = new Customer();
+        removeCustomer.setCustName(key);
+
+        while (listIterator.hasNext()) {
+            if (customerList.get(i).equals(key)) {
+                customerList.remove(i);
+            }
+            else {
+                ++i;
+            }
+        }
     }
 
     public void printCustomerData() throws IOException{

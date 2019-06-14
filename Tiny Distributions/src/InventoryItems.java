@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 // InventoryItems class adds and modifies Inventory in the database(LinkedList)
 
-public class InventoryItems {
+public class InventoryItems extends  CustomerOrders {
     String itemName;
 
     ListIterator<String> listIterator;
@@ -48,6 +48,22 @@ public class InventoryItems {
         fileByteStream.close();
     }
 
+    public void deleteInventoryItem(String key) {
+        int i = 0;
+
+        InventoryItems removeItem = new InventoryItems();
+        removeItem.setItemName(key);
+
+        while (listIterator.hasNext()) {
+            if (stock.get(i).equals(key)) {
+                stock.remove(i);
+            }
+            else {
+                ++i;
+            }
+        }
+    }
+
     public void printInventoryReport() throws IOException {
         populateItems();
 
@@ -59,8 +75,10 @@ public class InventoryItems {
     // TODO fix search i think
     public InventoryItems searchInventory(String key){
         int i = 0;
+
         InventoryItems noItem  = new InventoryItems();
         noItem.setItemName("Not Found");
+
         InventoryItems keyItem = new InventoryItems();
         keyItem.setItemName(key);
 
@@ -75,5 +93,6 @@ public class InventoryItems {
        }
         return noItem;
     }
+
 
 }
